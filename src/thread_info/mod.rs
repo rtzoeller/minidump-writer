@@ -33,7 +33,7 @@ pub type ThreadInfo = imp::ThreadInfoAarch64;
 pub type ThreadInfo = imp::ThreadInfoMips;
 
 #[derive(Debug)]
-#[allow(non_camel_case_types)]
+#[allow(non_camel_case_types, dead_code)]
 enum NT_Elf {
     NT_NONE = 0,
     NT_PRSTATUS = 1,

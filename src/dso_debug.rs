@@ -14,13 +14,25 @@ use goblin::elf::program_header::program_header32::SIZEOF_PHDR;
 #[cfg(all(target_pointer_width = "64"))]
 use goblin::elf::program_header::program_header64::SIZEOF_PHDR;
 
-#[cfg(all(target_pointer_width = "64", target_arch = "arm"))]
+#[cfg(all(
+    target_pointer_width = "64",
+    any(target_arch = "arm", target_os = "android")
+))]
 type ElfAddr = u64;
-#[cfg(all(target_pointer_width = "64", not(target_arch = "arm")))]
+#[cfg(all(
+    target_pointer_width = "64",
+    not(any(target_arch = "arm", target_os = "android"))
+))]
 type ElfAddr = libc::Elf64_Addr;
-#[cfg(all(target_pointer_width = "32", target_arch = "arm"))]
+#[cfg(all(
+    target_pointer_width = "32",
+    any(target_arch = "arm", target_os = "android")
+))]
 type ElfAddr = u32;
-#[cfg(all(target_pointer_width = "32", not(target_arch = "arm")))]
+#[cfg(all(
+    target_pointer_width = "32",
+    not(any(target_arch = "arm", target_os = "android"))
+))]
 type ElfAddr = libc::Elf32_Addr;
 
 // COPY from <link.h>
@@ -77,12 +89,12 @@ pub fn write_dso_debug_stream(
 ) -> Result<MDRawDirectory> {
     let at_phnum;
     let at_phdr;
-    #[cfg(target_arch = "arm")]
+    #[cfg(any(target_arch = "arm", target_os = "android"))]
     {
         at_phdr = 3;
         at_phnum = 5;
     }
-    #[cfg(not(target_arch = "arm"))]
+    #[cfg(not(any(target_arch = "arm", target_os = "android")))]
     {
         at_phdr = libc::AT_PHDR;
         at_phnum = libc::AT_PHNUM;

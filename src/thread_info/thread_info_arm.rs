@@ -1,8 +1,9 @@
 use super::{CommonThreadInfo, Pid};
 use crate::errors::ThreadInfoError;
+use crate::minidump_cpu::imp::{MD_CONTEXT_ARM_FULL, MD_CONTEXT_ARM_GPR_COUNT};
+#[cfg(not(target_os = "android"))]
 use crate::minidump_cpu::imp::{
-    MD_CONTEXT_ARM_FULL, MD_CONTEXT_ARM_GPR_COUNT, MD_FLOATINGSAVEAREA_ARM_FPEXTRA_COUNT,
-    MD_FLOATINGSAVEAREA_ARM_FPR_COUNT,
+    MD_FLOATINGSAVEAREA_ARM_FPEXTRA_COUNT, MD_FLOATINGSAVEAREA_ARM_FPR_COUNT,
 };
 use crate::minidump_cpu::RawContextCPU;
 use libc;
