@@ -31,10 +31,12 @@ jobs:
           target: ${{ matrix.job.target }}
           profile: minimal
           override: true
-      - name: Unit tests
+      #- name: Unit tests
+      - name: Build
         uses: actions-rs/cargo@v1
         with:
-          command: test
+          #command: test
+          command: build
           use-cross: ${{ matrix.job.use-cross }}
           args: --target ${{ matrix.job.target }} --verbose -- --nocapture
           
