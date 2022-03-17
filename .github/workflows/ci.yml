@@ -9,7 +9,7 @@ on:
 
 jobs:
   unit_tests:
-    name: Unit tests
+    name: Build sources
     runs-on: ${{ matrix.job.os }}
     strategy:
       matrix:
@@ -44,7 +44,7 @@ jobs:
           #command: test
           command: build
           use-cross: ${{ matrix.job.use-cross }}
-          args: --target ${{ matrix.job.target }} --verbose
+          args: --target ${{ matrix.job.target }} --verbose --all-targets
           #args: --target ${{ matrix.job.target }} --verbose -- --nocapture
           
   rustfmt:
